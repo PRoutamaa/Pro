@@ -1,0 +1,41 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Quiz application</h1>
+
+<p>This is an application where you can find questions regarding different topics.</p>
+<p>You can also create new questions as well as answer for those questions.</p>
+<p>You can also take a quiz to test your knowledge of different topics.</p>
+<p>I hope you enjoy this website. Have fun!</p>
+
+
+<% if (it.allCounts && it.allCounts.length > 0) { %>
+
+<table>
+    <thead>
+        <tr>
+         <th class="stat2" colspan="3" >Statistics</th>
+        </tr> 
+        <tr>
+        <th class="stat">Topics</th>
+        <th class="stat">Questions</th>
+        <th class="stat">Answers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="stat"><%= it.allCounts[0] %></td>
+            <td class="stat"><%= it.allCounts[1] %></td>
+            <td class="stat"><%= it.allCounts[2] %></td>
+        </tr> 
+    </tbody>
+</table>
+
+<% } else { %>
+    <h4>No statistics yet</h4>
+
+<% } %>
+
+<a href="/auth/login">Login</a>
+<br/>
+<br/>
+<a href="auth/register">Register</a>

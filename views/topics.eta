@@ -1,0 +1,22 @@
+<% layout('./layouts/layout.eta') %>
+
+<h1>Topics</h1>
+
+<h2>Available topics:</h2>
+
+<% if (it.allTopics && it.allTopics.length > 0) { %>
+
+<ul>
+<% it.allTopics.forEach(topic => { %>
+  <li>
+    <a href="/topics/<%= topic.id %>"><%= topic.name %></a> 
+  </li>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>
+

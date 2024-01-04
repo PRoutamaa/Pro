@@ -1,0 +1,59 @@
+<% layout('./layouts/layout.eta') %>
+
+<h1><%= it.question.question_text %></h1>
+
+<h2>Write new answer option</h2>
+
+<% if (it.validationErrors) { %>
+<ul>
+    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
+<form method="POST" action="/topics/<%= it.topicId %>/questions/<%= it.qId %>/options">
+Text:<br/>
+<textarea name="option_text"><%= it.option_text ? it.option_text : "" %></textarea><br/>
+Correct:<br/>
+<input type="checkbox" name="is_correct" /><br/>
+<input type="submit" value="Add answer option" />
+</form>
+
+<% if (it.answerOptions && it.answerOptions.length > 0) { %>
+
+<h2>Answer options</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Answer</th>
+      <th>Correct</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody class="myAnswer">
+    <% it.answerOptions.forEach(answer => { %>
+      <tr>
+        <td><%= answer.option_text %></td>
+        <td><%= answer.is_correct %></td>
+        <td>
+          <form method="POST" action="/topics/<%= it.topicId %>/questions/<%= answer.question_id %>/options/<%= answer.id %>/delete">
+            <input type="submit" value="Delete option"/>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<% } else { %>
+    <br/>
+    <br/>
+    <form method="POST" action="/topics/<%= it.topicId %>/questions/<%= it.qId %>/delete">
+      <input type="submit" value="Delete question"/>
+    </form>
+
+<% } %>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.2/dist/paper.min.css">
+  <style>
+    .stat {
+      text-align: center;
+      font-weight: bold;
+    }
+    .stat2 {
+      text-align: center;
+      font-weight: bold;
+      font-size: 50px;
+    }
+    .stat3 input[type="submit"] {
+      vertical-align: middle;
+    }
+    table {
+    width: 100%;
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  th {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  </style>
+  <title>Quiz App</title>
+</head>
+<body>
+  <% if (it.user) { %>
+    <nav class="border fixed split-nav">
+        <div class="nav-brand">
+            <h3>Hello <%= it.user.email %>. </h3>
+        </div>
+        <div class="collapsible">
+            <input id="collapsible1" type="checkbox" name="collapsible1">
+            <label for="collapsible1">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            </label>
+            <div class="collapsible-body">
+                <ul class="inline">
+                  <li><a href="/">Main page</a></li>
+                  <li><a href="/topics">Topics</a></li>
+                  <li><a href="/quiz">Quiz</a></li>
+                  <li><a href="/auth/logout">Not you! Login with another email</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+  <% } %>
+  
+  <div class="paper container">
+    <%~ it.body %>
+  </div>
+</body>
+</html>
