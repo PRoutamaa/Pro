@@ -19,10 +19,13 @@ const registerUser = async ({ request, response, render }) => {
     userData,
     choreValidationRules,
 );
-
+const userEmail = await userService.findUserByEmail(userData.email)
 if (!passes) {
     console.log(errors);
     userData.validationErrors = errors;
+    render("registration.eta", userData);
+} else if (userEmail[0] !== undefined) {
+    userData.validationErrors =  { email: { registered: "This email is already registered!" }, };
     render("registration.eta", userData);
 } else {
     await userService.addUser(
