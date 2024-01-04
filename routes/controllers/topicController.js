@@ -34,7 +34,8 @@ const addTopic = async ({ request, response, render, user }) => {
             topicData.admin = admin;
             render("topics.eta", topicData);
         } else {
-            await topicService.addTopic(topicData.name, user.id);    
+            await topicService.addTopic(topicData.name, user.id);  
+            response.redirect("/topics");  
         }
     } else {
         response.redirect("/topics");
@@ -42,7 +43,7 @@ const addTopic = async ({ request, response, render, user }) => {
 };  
 
 const deleteTopic = async ({ params, response, user }) => {
-    if (topicService.isAdmin(user.id)) {
+    if (await topicService.isAdmin(user.id)) {
         await topicService.deleteTopic(params.id);
     };
     response.redirect("/topics");    
