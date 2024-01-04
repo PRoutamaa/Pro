@@ -27,9 +27,8 @@ const addQuestion = async ({ params, request, response, render, user }) => {
         render("topic.eta", data);
     } else {
         await questionService.addQuestion(user.id, data.topicId, data.text,);
-
         response.redirect(`/topics/${data.topicId}`);
-    }
+    };
 };
 
 const deleteQuestion = async ({ params, response }) => {

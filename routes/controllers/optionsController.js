@@ -34,7 +34,6 @@ const addAnswerOption = async ({ request, render, response, params }) => {
         render("question.eta", data);
     } else {
         await questionService.addAnswerOption(data.qId, data.text, data.isCorrect);
-
         response.redirect(`/topics/${params.id}/questions/${data.qId}`);
     };
 };

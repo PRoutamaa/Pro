@@ -29,7 +29,6 @@ if (!passes) {
       userData.email,
       await bcrypt.hash(userData.password),
     );
-
     response.redirect("/auth/login");
   };
 };
