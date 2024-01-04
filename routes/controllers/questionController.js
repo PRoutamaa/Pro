@@ -22,6 +22,7 @@ const addQuestion = async ({ params, request, response, render, user }) => {
 
     if (!passes) {
         console.log(errors);
+        data.currentTopic = await topicName(params.id);
         data.validationErrors = errors;
         render("topic.eta", data);
     } else {

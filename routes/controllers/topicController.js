@@ -10,37 +10,35 @@ const listTopics = async ({ render, user }) => {
         allTopics: await topicService.listTopics(),
         admin:  await topicService.isAdmin(user.id),
     };
-    
-    if (data.admin) {
-        render("topicsAdmin.eta", data);
-    } else {
-        render("topics.eta", data);
-    };   
+    render("topics.eta", data);  
   };
 
   
 const addTopic = async ({ request, response, render, user }) => {
-    if (topicService.isAdmin(user.id)) {
+    const admin = await topicService.isAdmin(user.id)
+    if (admin) {
         const body = request.body({ type: "form" });
         const params = await body.value;
-        const data = {
+        const topicData = {
             name: params.get("name"),
         };
-
         const [passes, errors] = await validasaur.validate(
-            data,
+            topicData,
             choreValidationRules,
         );
 
         if (!passes) {
             console.log(errors);
-            data.validationErrors = errors;
-            render("topics.eta", data);
+            topicData.allTopics = await topicService.listTopics();
+            topicData.validationErrors = errors;
+            topicData.admin = admin;
+            render("topics.eta", topicData);
         } else {
-            await topicService.addTopic(data.name, user.id);    
+            await topicService.addTopic(topicData.name, user.id);    
         }
+    } else {
+        response.redirect("/topics");
     };
-    response.redirect("/topics");
 };  
 
 const deleteTopic = async ({ params, response, user }) => {

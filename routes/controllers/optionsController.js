@@ -7,7 +7,7 @@ const choreValidationRules = {
     isCorrect: [validasaur.required, validasaur.isBool],
   };
 
-const addAnswerOption = async ({ request, response, params }) => {
+const addAnswerOption = async ({ request, render, response, params }) => {
     const body = request.body({ type: "form" });
     const inputValues = await body.value;
     const data = {
@@ -28,6 +28,9 @@ const addAnswerOption = async ({ request, response, params }) => {
     if (!passes) {
         console.log(errors);
         data.validationErrors = errors;
+        data.topicId = params.id;
+        data.question = await questionService.getQuestion(params.qId);
+        data.answerOptions = await questionService.viewOptions(params.qId);
         render("question.eta", data);
     } else {
         await questionService.addAnswerOption(data.qId, data.text, data.isCorrect);
