@@ -30,7 +30,7 @@ const viewQuestion = async ({ params, render }) => {
 const chooseOption = async ({ params, response, user }) => {
     await quizService.storeAnswer(user.id, params.qId, params.oId);
     
-    if (await quizService.checkAnswer(params.oId)) {
+    if (await quizService.checkAnswer(params.qId, params.oId)) {
         response.redirect(`/quiz/${params.tId}/questions/${params.qId}/correct`);
     } else {
         response.redirect(`/quiz/${params.tId}/questions/${params.qId}/incorrect`);

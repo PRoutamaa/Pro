@@ -23,12 +23,13 @@ const getRandomQuestion = async ({ response }) => {
 const checkAnswer = async ({ request, response }) => {
     const body = request.body({ type: "json" });
     const document = await body.value;
-    let resultado = await quizService.checkAnswer(document.optionId);
+    let resultado = await quizService.checkAnswer(document.questionId, document.optionId);
     if ( resultado !== null) {
         response.body = { correct: resultado };
     } else {
         response.body = {};
     };
+
 };
 
 export { checkAnswer, getRandomQuestion };

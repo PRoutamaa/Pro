@@ -14,8 +14,8 @@ const storeAnswer = async (userId, qId, qAOId) => {
               VALUES (${userId}, ${qId}, ${qAOId})`;
 };
 
-const checkAnswer = async (qAOId) => {
-    const answer = await sql`SELECT is_correct FROM question_answer_options WHERE id = ${qAOId}`;
+const checkAnswer = async (qId, qAOId) => {
+    const answer = await sql`SELECT is_correct FROM question_answer_options WHERE id = ${qAOId} AND question_id = ${qId}`;
     if (answer && answer.length > 0) {
         return answer[0].is_correct;
     } else {
